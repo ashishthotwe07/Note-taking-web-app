@@ -1,187 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Note Saving App</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        margin-right: 30px;
-      }
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Note Saving App</h1>
 
-      h1 {
-        text-align: center;
-        background-color: linen;
-      }
+        <div class="input-container">
+            <textarea id="note-input" placeholder="Enter your note"></textarea>
+            <button id="save-btn">Save Note</button>
+        </div>
 
-      #note-input {
-        width: 100%;
-        height: 200px;
-        padding: 10px;
-        margin-bottom: 10px;
-        resize: none;
-        border: 2px solid black;
-      }
+        <h2>Saved Notes</h2>
+        <ul id="note-list"></ul>
+    </div>
 
-      #note-list {
-        list-style-type: none;
-        padding: 0;
-      }
-
-      .note-item {
-        background-color: #f5f5f5;
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-bottom: 10px;
-      }
-
-      .note-item p {
-        margin: 0;
-      }
-
-      .delete-btn {
-        background-color: #ff4d4d;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-top: 5px;
-      }
-      .edit-btn {
-        background-color: #ff4d4d;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin: 5px;
-      }
-      #save-btn {
-        background-color: #ff4d4d;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin: 5px;
-      }
-      .save-btn {
-        background-color: #ff4d4d;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Note Saving App</h1>
-
-    <textarea id="note-input" placeholder="Enter your note"></textarea>
-    <button id="save-btn">Save Note</button>
-
-    <h2>Saved Notes</h2>
-    <ul id="note-list"></ul>
-
-    <script>
-      // Save Note - Keyboard Shortcut: Ctrl + S
-      document.addEventListener("keydown", function (event) {
-        if (event.ctrlKey && event.key === "s") {
-          event.preventDefault();
-          saveNote();
-        }
-      });
-
-      document.getElementById("save-btn").addEventListener("click", saveNote);
-
-      function saveNote() {
-        var noteInput = document.getElementById("note-input");
-        var noteText = noteInput.value.trim();
-
-        if (noteText !== "") {
-          var noteItem = document.createElement("li");
-          noteItem.className = "note-item";
-
-          var noteParagraph = document.createElement("p");
-          noteParagraph.textContent = noteText;
-          noteItem.appendChild(noteParagraph);
-
-          var deleteButton = document.createElement("button");
-          deleteButton.className = "delete-btn";
-          deleteButton.textContent = "Delete";
-          deleteButton.addEventListener("click", function () {
-            noteItem.parentNode.removeChild(noteItem);
-          });
-          noteItem.appendChild(deleteButton);
-
-          var editButton = document.createElement("button");
-          editButton.className = "edit-btn";
-          editButton.textContent = "Edit";
-          editButton.addEventListener("click", function () {
-            noteParagraph.contentEditable = true;
-            noteParagraph.focus();
-            editButton.style.display = "none";
-            saveButton.style.display = "inline";
-          });
-          noteItem.appendChild(editButton);
-
-          var saveButton = document.createElement("button");
-          saveButton.className = "save-btn";
-          saveButton.textContent = "Save";
-          saveButton.style.display = "none";
-          saveButton.addEventListener("click", function () {
-            noteParagraph.contentEditable = false;
-            editButton.style.display = "inline";
-            saveButton.style.display = "none";
-          });
-          noteItem.appendChild(saveButton);
-
-          document.getElementById("note-list").appendChild(noteItem);
-
-          noteInput.value = "";
-        }
-      }
-
-      // Delete Note - Keyboard Shortcut: Ctrl + D
-      document.addEventListener("keydown", function (event) {
-        if (event.ctrlKey && event.key === "d") {
-          event.preventDefault();
-          deleteNote();
-        }
-      });
-
-      function deleteNote() {
-        var noteList = document.getElementById("note-list");
-        var selectedNote = noteList.querySelector(".note-item");
-        if (selectedNote) {
-          selectedNote.parentNode.removeChild(selectedNote);
-        }
-      }
-
-      // Edit Note - Keyboard Shortcut: Ctrl + E
-      document.addEventListener("keydown", function (event) {
-        if (event.ctrlKey && event.key === "e") {
-          event.preventDefault();
-          editNote();
-        }
-      });
-
-      function editNote() {
-        var noteList = document.getElementById("note-list");
-        var selectedNote = noteList.querySelector(".note-item");
-        if (selectedNote) {
-          var noteParagraph = selectedNote.querySelector("p");
-          noteParagraph.contentEditable = true;
-          noteParagraph.focus();
-          var editButton = selectedNote.querySelector(".edit-btn");
-          var saveButton = selectedNote.querySelector(".save-btn");
-          editButton.style.display = "none";
-          saveButton.style.display = "inline";
-        }
-      }
-    </script>
-  </body>
+    <script src="script.js"></script>
+</body>
 </html>
